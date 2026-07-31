@@ -17,4 +17,22 @@ describe('TopBar', () => {
     expect(screen.getByLabelText('Search')).toBeInTheDocument()
     expect(screen.queryByRole('button', { name: 'Back' })).not.toBeInTheDocument()
   })
+
+  it('renders multiple content children as siblings', () => {
+    render(
+      <TopBar
+        content={
+          <>
+            <span>Search</span>
+            <button type="button">Close</button>
+          </>
+        }
+      />,
+    )
+
+    const wrapper = screen.getByText('Search').parentElement
+    expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument()
+    expect(wrapper?.firstElementChild).toBe(screen.getByText('Search'))
+    expect(wrapper?.firstElementChild?.nextElementSibling).toBe(screen.getByRole('button', { name: 'Close' }))
+  })
 })

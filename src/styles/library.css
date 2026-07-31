@@ -1,5 +1,7 @@
 @import './tokens.css';
 
+*, *::before, *::after { box-sizing: border-box; }
+
 button,
 input,
 textarea,
