@@ -1,0 +1,16 @@
+
+.positioner {
+  z-index: var(--z-tooltip);
+}
+
+.popup {
+  background-color: var(--color-inverse);
+  color: var(--color-bg);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-caption);
+  box-shadow: var(--shadow-floating);
+}

@@ -1,0 +1,13 @@
+@import './tokens.css';
+
+button,
+input,
+textarea,
+select {
+  box-sizing: border-box;
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}

@@ -1,0 +1,115 @@
+.viewport {
+  position: fixed;
+  right: var(--space-4);
+  bottom: calc(96px + env(safe-area-inset-bottom));
+  left: var(--space-4);
+  z-index: var(--z-toast);
+  display: grid;
+  gap: var(--space-2);
+  max-width: 430px;
+  margin-inline: auto;
+  pointer-events: none;
+}
+
+.root {
+  pointer-events: auto;
+  transition:
+    opacity var(--duration-control) var(--ease-out),
+    transform var(--duration-control) var(--ease-out);
+}
+
+.root[data-starting-style],
+.root[data-ending-style] {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.content {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 56px;
+  padding: var(--space-2) var(--space-5);
+  overflow: hidden;
+  color: var(--color-text);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-floating);
+}
+
+.root[data-type='danger'] .content {
+  color: var(--color-danger);
+}
+
+.copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  flex: 1;
+  min-width: 0;
+  gap: 2px;
+}
+
+.title {
+  color: inherit;
+  font-size: var(--text-body);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-label);
+}
+
+.description {
+  color: var(--color-muted);
+  font-size: var(--text-caption);
+  line-height: var(--leading-caption);
+}
+
+.close {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+  padding: var(--space-2);
+  color: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  border-radius: var(--radius-pill);
+  transition:
+    background var(--duration-press) var(--ease-out),
+    box-shadow var(--duration-press) var(--ease-out),
+    transform var(--duration-press) var(--ease-out);
+}
+
+.close:active {
+  background: var(--color-pressed);
+  transform: scale(0.97);
+}
+
+.close:focus-visible {
+  outline: 1px solid var(--color-focus);
+  outline-offset: 2px;
+  box-shadow: var(--focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .close {
+    transition:
+      background var(--duration-press) var(--ease-out),
+      box-shadow var(--duration-press) var(--ease-out);
+  }
+
+  .close:active {
+    transform: none;
+  }
+
+  .root[data-starting-style],
+  .root[data-ending-style] {
+    transform: none;
+  }
+}

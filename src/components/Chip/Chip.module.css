@@ -1,0 +1,99 @@
+.chip {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 38px;
+  max-width: 100%;
+  padding: 0 var(--space-3);
+  color: var(--color-text);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-compact);
+  overflow: hidden;
+  transition:
+    background var(--duration-press) var(--ease-out),
+    border-color var(--duration-press) var(--ease-out),
+    box-shadow var(--duration-press) var(--ease-out),
+    color var(--duration-press) var(--ease-out),
+    transform var(--duration-press) var(--ease-out);
+}
+
+.chip::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--color-action);
+  border-radius: inherit;
+  content: '';
+  opacity: 0;
+  transition: opacity var(--duration-control) var(--ease-out);
+}
+
+.chip:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.chip:not(:disabled):active {
+  background: var(--color-pressed);
+  transform: scale(0.98);
+}
+
+.chip:focus-visible {
+  outline: 1px solid var(--color-focus);
+  outline-offset: 2px;
+  box-shadow: var(--focus-ring);
+}
+
+.selected {
+  color: var(--color-action-text);
+  border-color: var(--color-action);
+}
+
+.selected::before {
+  opacity: 1;
+}
+
+.icon {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.label {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chip {
+    transition:
+      background var(--duration-press) var(--ease-out),
+      border-color var(--duration-press) var(--ease-out),
+      box-shadow var(--duration-press) var(--ease-out),
+      color var(--duration-press) var(--ease-out);
+  }
+
+  .chip:not(:disabled):active {
+    transform: none;
+  }
+
+  .chip::before {
+    transition: opacity var(--duration-control) var(--ease-out);
+  }
+}

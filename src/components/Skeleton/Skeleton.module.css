@@ -1,0 +1,37 @@
+.skeleton {
+  background: var(--color-skeleton);
+}
+
+.block {
+  min-height: 88px;
+  border-radius: var(--radius-lg);
+}
+
+.circle {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+}
+
+.line {
+  width: 100%;
+  height: 14px;
+  border-radius: var(--radius-pill);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.lines {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+  gap: var(--space-2);
+}
+
+.short {
+  width: 62%;
+}

@@ -1,0 +1,11 @@
+.screen {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: calc(72px + env(safe-area-inset-top)) var(--space-4) calc(112px + env(safe-area-inset-bottom));
+  scrollbar-width: none;
+}
+
+.screen::-webkit-scrollbar {
+  display: none;
+}

@@ -1,0 +1,102 @@
+.root {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 48px;
+  padding: 0 var(--space-2) 0 var(--space-3);
+  color: var(--color-text);
+  background: var(--color-surface-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+}
+
+.root:focus-within {
+  border-color: var(--color-focus);
+  box-shadow: var(--focus-ring);
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.searchIcon {
+  color: var(--color-muted);
+}
+
+.input {
+  min-width: 0;
+  height: 44px;
+  padding: 0;
+  color: var(--color-text);
+  background: transparent;
+  border: 0;
+  font-size: var(--text-body);
+  line-height: var(--leading-label);
+  outline: 0;
+}
+
+.input::placeholder {
+  color: var(--color-muted);
+}
+
+.input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.clear {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  color: var(--color-surface-raised);
+  background: var(--color-muted);
+  border: 0;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    background var(--duration-press) var(--ease-out),
+    box-shadow var(--duration-press) var(--ease-out),
+    transform var(--duration-press) var(--ease-out);
+}
+
+.clear > :not([data-press-ripple]) {
+  position: relative;
+  z-index: 1;
+}
+
+.clear:active {
+  background: var(--color-focus);
+  transform: scale(0.97);
+}
+
+.clear:focus-visible {
+  outline: 1px solid var(--color-focus);
+  outline-offset: 2px;
+  box-shadow: var(--focus-ring);
+}
+
+.trailing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clear {
+    transition:
+      background var(--duration-press) var(--ease-out),
+      box-shadow var(--duration-press) var(--ease-out);
+  }
+
+  .clear:active {
+    transform: none;
+  }
+}

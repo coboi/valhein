@@ -1,0 +1,130 @@
+.button {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-size: var(--text-title-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-compact);
+  overflow: hidden;
+  transition:
+    background var(--duration-press) var(--ease-out),
+    border-color var(--duration-press) var(--ease-out),
+    box-shadow var(--duration-press) var(--ease-out),
+    transform var(--duration-press) var(--ease-out);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.button:focus-visible {
+  outline: 1px solid var(--color-focus);
+  outline-offset: 2px;
+  box-shadow: var(--focus-ring);
+}
+
+.button:not(:disabled):active {
+  transform: scale(0.98);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.icon {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  line-height: var(--leading-compact);
+}
+
+.spinner {
+  position: relative;
+  z-index: 1;
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: var(--radius-pill);
+  animation: spin 800ms linear infinite;
+}
+
+.primary {
+  color: var(--color-action-text);
+  background:
+    var(--control-highlight),
+    var(--color-action);
+}
+
+.primary:not(:disabled):active {
+  background:
+    var(--control-highlight),
+    var(--color-action-pressed);
+}
+
+.secondary {
+  color: var(--color-text);
+  background:
+    var(--control-highlight),
+    var(--color-surface-raised);
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-raised);
+}
+
+.secondary:not(:disabled):active {
+  background:
+    var(--control-highlight),
+    var(--color-pressed);
+}
+
+.ghost {
+  color: var(--color-text);
+  background: transparent;
+}
+
+.ghost:not(:disabled):active {
+  background: var(--color-pressed);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition:
+      background var(--duration-press) var(--ease-out),
+      border-color var(--duration-press) var(--ease-out),
+      box-shadow var(--duration-press) var(--ease-out);
+  }
+
+  .button:not(:disabled):active {
+    transform: none;
+  }
+
+  .spinner {
+    animation: none;
+    border-right-color: currentColor;
+    opacity: 0.72;
+  }
+}

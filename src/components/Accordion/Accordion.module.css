@@ -1,0 +1,117 @@
+.root {
+  overflow: hidden;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.item:not(:last-child) {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header {
+  margin: 0;
+}
+
+.trigger {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 60px;
+  padding: 0 var(--space-4);
+  color: var(--color-text);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  overflow: hidden;
+  text-align: left;
+  transition: background var(--duration-press) var(--ease-out);
+}
+
+.trigger:not(:disabled):active {
+  background: var(--color-surface-muted);
+}
+
+.trigger:focus-visible {
+  outline: 1px solid var(--color-focus);
+  outline-offset: -3px;
+}
+
+.trigger:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.title {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: var(--text-title-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-label);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chevron {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  margin-left: var(--space-3);
+  color: var(--color-muted);
+  transition: transform var(--duration-control) var(--ease-out);
+}
+
+.trigger[data-open] .chevron {
+  transform: rotate(180deg);
+}
+
+.panel {
+  height: var(--accordion-panel-height);
+  overflow: hidden;
+  color: var(--color-muted);
+  font-size: var(--text-body);
+  line-height: var(--leading-copy);
+  opacity: 1;
+  transition:
+    height var(--duration-overlay) var(--ease-out),
+    opacity var(--duration-control) var(--ease-out);
+}
+
+.panel[data-starting-style],
+.panel[data-ending-style] {
+  height: 0;
+  opacity: 0;
+}
+
+.content {
+  padding: 0 var(--space-4) var(--space-4);
+  transform: translateY(0);
+  transition: transform var(--duration-overlay) var(--ease-out);
+}
+
+.panel[data-starting-style] .content,
+.panel[data-ending-style] .content {
+  transform: translateY(-4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevron,
+  .content {
+    transition: none;
+  }
+
+  .panel {
+    transition: opacity var(--duration-control) var(--ease-out);
+  }
+
+  .panel[data-starting-style] .content,
+  .panel[data-ending-style] .content {
+    transform: none;
+  }
+}

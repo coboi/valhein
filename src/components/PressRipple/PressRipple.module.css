@@ -1,0 +1,38 @@
+.ripple {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: var(--press-ripple-size);
+  height: var(--press-ripple-size);
+  background: var(--press-ripple-color, currentColor);
+  border-radius: var(--radius-pill);
+  opacity: 0;
+  pointer-events: none;
+  scale: 0;
+  transform: translate3d(var(--press-ripple-x), var(--press-ripple-y), 0);
+  animation: pressRipple var(--press-ripple-duration) var(--ease-out);
+  will-change: scale, opacity;
+}
+
+@keyframes pressRipple {
+  0% {
+    scale: 0.08;
+    opacity: 0.16;
+  }
+
+  55% {
+    opacity: 0.12;
+  }
+
+  100% {
+    scale: 1;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ripple {
+    display: none;
+  }
+}
