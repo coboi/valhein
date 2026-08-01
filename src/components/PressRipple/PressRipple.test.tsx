@@ -47,10 +47,10 @@ describe('PressRipple', () => {
     expect(ripple).toBeInTheDocument()
 
     expect(ripple).toHaveStyle({
-      '--press-ripple-size': '170px',
-      '--press-ripple-x': '-45px',
-      '--press-ripple-y': '-75px',
-      '--press-ripple-duration': '280ms',
+      '--press-ripple-size': '215px',
+      '--press-ripple-x': '40px',
+      '--press-ripple-y': '10px',
+      '--press-ripple-duration': '320ms',
     })
   })
 

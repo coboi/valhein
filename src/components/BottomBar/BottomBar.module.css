@@ -25,6 +25,7 @@
 
 .tab {
   position: relative;
+  isolation: isolate;
   z-index: 1;
   display: flex;
   flex-direction: column;
@@ -46,14 +47,6 @@
 
 .tab[data-active] {
   color: var(--color-text);
-}
-
-.tab[data-active]:active {
-  background: var(--color-surface-raised);
-}
-
-.tab:not([data-disabled]):active {
-  transform: scale(0.97);
 }
 
 .tab:focus-visible {
@@ -79,6 +72,7 @@
   transition:
     transform var(--duration-control) var(--ease-in-out),
     width var(--duration-control) var(--ease-in-out),
+    height var(--duration-control) var(--ease-in-out),
     opacity var(--duration-control) var(--ease-out);
 }
 

@@ -1,6 +1,7 @@
 import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox'
 import { CheckIcon } from '@phosphor-icons/react'
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
+import { PressRipple, usePressRipple } from '../PressRipple'
 import styles from './Checkbox.module.css'
 
 export type CheckboxProps = ComponentPropsWithoutRef<typeof BaseCheckbox.Root> & {
@@ -16,8 +17,15 @@ export type CheckboxGroupProps = {
 }
 
 export function Checkbox({ className, description, disabled, label, leading, trailing, ...props }: CheckboxProps) {
+  const pressRipple = usePressRipple<HTMLLabelElement>({ disabled })
+
   return (
-    <label className={[styles.wrapper, className].filter(Boolean).join(' ')} data-disabled={disabled || undefined}>
+    <label
+      className={[styles.wrapper, className].filter(Boolean).join(' ')}
+      data-disabled={disabled || undefined}
+      onPointerDown={pressRipple.onPointerDown}
+    >
+      <PressRipple ripple={pressRipple.ripple} />
       <BaseCheckbox.Root className={styles.root} disabled={disabled} {...props}>
         <BaseCheckbox.Indicator className={styles.indicator} keepMounted>
           <CheckIcon aria-hidden="true" size={16} weight="bold" />

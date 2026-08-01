@@ -12,6 +12,7 @@
 
 .wrapper {
   position: relative;
+  isolation: isolate;
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -20,11 +21,15 @@
   width: 100%;
   background: transparent;
   cursor: pointer;
-  transition: background var(--duration-press) var(--ease-out);
+  overflow: hidden;
+  transition:
+    background var(--duration-press) var(--ease-out),
+    transform var(--duration-press) var(--ease-out);
 }
 
 .wrapper:active {
   background: var(--color-pressed);
+  transform: scale(0.995);
 }
 
 .wrapper[data-disabled] {
@@ -34,9 +39,12 @@
 
 .wrapper[data-disabled]:active {
   background: transparent;
+  transform: none;
 }
 
 .root {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -94,6 +102,7 @@
 
 .copy {
   position: relative;
+  z-index: 1;
   display: grid;
   flex: 1 1 auto;
   align-self: stretch;
@@ -114,6 +123,8 @@
 
 .leading,
 .trailing {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   flex: 0 0 auto;
   align-items: center;

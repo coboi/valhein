@@ -30,6 +30,7 @@
 
 .tab {
   position: relative;
+  isolation: isolate;
   z-index: 1;
   display: inline-flex;
   align-items: center;
@@ -83,15 +84,8 @@
   transition:
     transform var(--duration-control) var(--ease-in-out),
     width var(--duration-control) var(--ease-in-out),
+    height var(--duration-control) var(--ease-in-out),
     opacity var(--duration-control) var(--ease-out);
-}
-
-.tab[data-active]:not([data-disabled]):active {
-  background: var(--color-pressed);
-}
-
-.tab:not([data-disabled]):active {
-  transform: scale(0.98);
 }
 
 .tab:focus-visible {

@@ -10,9 +10,9 @@ export function ListExample() {
       <ExampleHero title="List">Grouped rows with leading content, descriptions, and trailing controls.</ExampleHero>
       <ExampleSection title="Inbox triage" description="Rows stay compact while exposing priority and action state.">
         <List>
-          <ListItem title="Review onboarding copy" description="Product · 12 min ago" leading={<Avatar fallback="PR" />} trailing={<Badge variant="danger">High</Badge>} />
-          <ListItem title="Sync design tokens" description="System · Today" leading={<Avatar fallback="DS" />} trailing={<Badge>Ready</Badge>} />
-          <ListItem title="Archive stale prompts" description="Ops · Tomorrow" leading={<Avatar fallback="OP" />} trailing={<Switch aria-label="Mark archive task enabled" />} />
+          <ListItem onClick={() => {}} title="Review onboarding copy" description="Product · 12 min ago" leading={<Avatar fallback="PR" />} trailing={<Badge variant="danger">High</Badge>} />
+          <ListItem onClick={() => {}} title="Sync design tokens" description="System · Today" leading={<Avatar fallback="DS" />} trailing={<Badge>Ready</Badge>} />
+          <ListItem onClick={() => {}} title="Archive stale prompts" description="Ops · Tomorrow" leading={<Avatar fallback="OP" />} trailing={<Switch aria-label="Mark archive task enabled" />} />
         </List>
       </ExampleSection>
     </ExampleStack>

@@ -33,16 +33,24 @@ export function usePressRipple<T extends HTMLElement>({
 
     const rippleElement = getRippleElement?.(event) ?? event.currentTarget
     const rect = rippleElement.getBoundingClientRect()
-    const size = Math.max(rect.width, rect.height) * 1.7
-    const duration = Math.round(Math.min(460, Math.max(280, size * 1.15)))
+    const clickX = event.clientX - rect.left
+    const clickY = event.clientY - rect.top
+    const maxCornerDist = Math.max(
+      Math.hypot(clickX, clickY),
+      Math.hypot(rect.width - clickX, clickY),
+      Math.hypot(clickX, rect.height - clickY),
+      Math.hypot(rect.width - clickX, rect.height - clickY),
+    )
+    const size = Math.ceil(maxCornerDist * 3.2)
+    const duration = Math.round(Math.min(550, Math.max(320, size * 0.75)))
 
     rippleId.current += 1
     setRipple({
       duration,
       id: rippleId.current,
       size,
-      x: event.clientX - rect.left - size / 2,
-      y: event.clientY - rect.top - size / 2,
+      x: clickX,
+      y: clickY,
     })
   }
 
