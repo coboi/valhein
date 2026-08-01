@@ -78,6 +78,7 @@
   transform: translate3d(var(--active-tab-left), var(--active-tab-top), 0);
   transition:
     transform var(--duration-control) var(--ease-in-out),
+    width var(--duration-control) var(--ease-in-out),
     opacity var(--duration-control) var(--ease-out);
 }
 
