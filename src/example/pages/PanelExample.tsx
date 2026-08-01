@@ -2,10 +2,13 @@ import { GearSixIcon, HouseIcon, MagnifyingGlassIcon, StarIcon } from '@phosphor
 import { Button } from '../../components/Button'
 import { List, ListItem } from '../../components/List'
 import { Panel, PanelClose } from '../../components/Panel'
+import { useToast } from '../../components/Toast'
 import { ExampleHero, ExampleSection, ExampleStack } from '../ExampleFrame'
 import { exampleStyles } from '../exampleStyles'
 
 export function PanelExample() {
+  const toast = useToast()
+
   return (
     <ExampleStack>
       <ExampleHero title="Panel">Side drawer for app menus, navigation lists, and persistent action groups.</ExampleHero>
@@ -22,10 +25,38 @@ export function PanelExample() {
             )}
           >
             <List>
-              <ListItem title="Home" description="Return to the overview" leading={<HouseIcon aria-hidden="true" size={22} />} />
-              <ListItem title="Discover" description="Browse saved patterns" leading={<MagnifyingGlassIcon aria-hidden="true" size={22} />} />
-              <ListItem title="Favorites" description="Pinned examples and flows" leading={<StarIcon aria-hidden="true" size={22} />} />
-              <ListItem title="Settings" description="Theme and preferences" leading={<GearSixIcon aria-hidden="true" size={22} />} />
+              <PanelClose>
+                <ListItem
+                  title="Home"
+                  description="Return to the overview"
+                  leading={<HouseIcon aria-hidden="true" size={22} />}
+                  onClick={() => toast.add({ title: 'Navigated to Home' })}
+                />
+              </PanelClose>
+              <PanelClose>
+                <ListItem
+                  title="Discover"
+                  description="Browse saved patterns"
+                  leading={<MagnifyingGlassIcon aria-hidden="true" size={22} />}
+                  onClick={() => toast.add({ title: 'Navigated to Discover' })}
+                />
+              </PanelClose>
+              <PanelClose>
+                <ListItem
+                  title="Favorites"
+                  description="Pinned examples and flows"
+                  leading={<StarIcon aria-hidden="true" size={22} />}
+                  onClick={() => toast.add({ title: 'Navigated to Favorites' })}
+                />
+              </PanelClose>
+              <PanelClose>
+                <ListItem
+                  title="Settings"
+                  description="Theme and preferences"
+                  leading={<GearSixIcon aria-hidden="true" size={22} />}
+                  onClick={() => toast.add({ title: 'Navigated to Settings' })}
+                />
+              </PanelClose>
             </List>
           </Panel>
         </div>
@@ -45,9 +76,27 @@ export function PanelExample() {
             )}
           >
             <List>
-              <ListItem title="Sort by priority" description="Highest signal first" />
-              <ListItem title="Show archived" description="Include completed items" />
-              <ListItem title="Compact rows" description="Fit more entries on small screens" />
+              <PanelClose>
+                <ListItem
+                  title="Sort by priority"
+                  description="Highest signal first"
+                  onClick={() => toast.add({ title: 'Selected: Sort by priority' })}
+                />
+              </PanelClose>
+              <PanelClose>
+                <ListItem
+                  title="Show archived"
+                  description="Include completed items"
+                  onClick={() => toast.add({ title: 'Selected: Show archived' })}
+                />
+              </PanelClose>
+              <PanelClose>
+                <ListItem
+                  title="Compact rows"
+                  description="Fit more entries on small screens"
+                  onClick={() => toast.add({ title: 'Selected: Compact rows' })}
+                />
+              </PanelClose>
             </List>
           </Panel>
         </div>
@@ -55,3 +104,4 @@ export function PanelExample() {
     </ExampleStack>
   )
 }
+
