@@ -69,30 +69,22 @@
 
 .primary {
   color: var(--color-action-text);
-  background:
-    var(--control-highlight),
-    var(--color-action);
+  background: var(--action-gradient);
 }
 
 .primary:not(:disabled):active {
-  background:
-    var(--control-highlight),
-    var(--color-action-pressed);
+  background: var(--action-gradient-pressed);
 }
 
 .secondary {
   color: var(--color-text);
-  background:
-    var(--control-highlight),
-    var(--color-surface-raised);
+  background: var(--surface-gradient);
   border-color: var(--color-border);
   box-shadow: var(--shadow-raised);
 }
 
 .secondary:not(:disabled):active {
-  background:
-    var(--control-highlight),
-    var(--color-pressed);
+  background: var(--color-pressed);
 }
 
 .ghost {

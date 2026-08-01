@@ -16,7 +16,7 @@
 
 .neutral {
   color: var(--color-text);
-  background: var(--color-surface-muted);
+  background: var(--color-badge-neutral);
   border-color: var(--color-border);
 }
 

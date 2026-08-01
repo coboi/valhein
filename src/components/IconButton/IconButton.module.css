@@ -31,18 +31,14 @@
 
 .raised {
   color: var(--color-text);
-  background:
-    var(--control-highlight),
-    var(--color-surface-raised);
+  background: var(--surface-gradient);
   border-color: var(--color-border);
   box-shadow: var(--shadow-raised);
 }
 
 .primary {
   color: var(--color-action-text);
-  background:
-    var(--control-highlight),
-    var(--color-action);
+  background: var(--action-gradient);
   border-color: color-mix(in srgb, var(--color-action) 78%, var(--color-border));
   box-shadow: var(--shadow-raised);
 }
@@ -69,9 +65,7 @@
 }
 
 .primary:not(:disabled):active {
-  background:
-    var(--control-highlight),
-    var(--color-action-pressed);
+  background: var(--action-gradient-pressed);
 }
 
 .spinner {
