@@ -53,8 +53,13 @@ export function ChoiceDialog(props: ChoiceDialogProps) {
 
   function handleOpenChange(nextOpen: boolean) {
     if (nextOpen) {
-      setDraftSingleValue(selectedSingleValue)
-      setDraftMultipleValue(selectedMultipleValue)
+      if (isMultiple) {
+        setDraftMultipleValue(selectedMultipleValue)
+      } else {
+        setDraftSingleValue(
+          props.value ?? (singleValue || props.options.find((option) => !option.disabled)?.value) ?? '',
+        )
+      }
     }
 
     setOpen(nextOpen)

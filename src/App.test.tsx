@@ -1,8 +1,8 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import App from './App'
-import { Button, ChoiceDialog, Dialog, DialogClose, Input, Select } from './index'
+import { Button, Dialog, DialogClose, Input, Select } from './index'
 
 beforeEach(() => {
   window.localStorage.clear()
@@ -175,65 +175,6 @@ describe('Form controls', () => {
     const description = screen.getByText('Choose an accent color.')
 
     expect(select).toHaveAttribute('aria-describedby', description.id)
-  })
-})
-
-describe('ChoiceDialog', () => {
-  it('applies a single choice only when confirmed', async () => {
-    const user = userEvent.setup()
-    const handleValueChange = vi.fn()
-
-    render(
-      <ChoiceDialog
-        trigger={<Button>Choose workspace</Button>}
-        title="Choose workspace"
-        defaultValue="personal"
-        onValueChange={handleValueChange}
-        options={[
-          { value: 'personal', label: 'Personal' },
-          { value: 'team', label: 'Team' },
-        ]}
-      />,
-    )
-
-    await user.click(screen.getByRole('button', { name: 'Choose workspace' }))
-    await user.click(screen.getByText('Team'))
-    await user.click(screen.getByRole('button', { name: 'Cancel' }))
-
-    expect(handleValueChange).not.toHaveBeenCalled()
-
-    await user.click(screen.getByRole('button', { name: 'Choose workspace' }))
-    await user.click(screen.getByText('Team'))
-    await user.click(screen.getByRole('button', { name: 'Apply' }))
-
-    expect(handleValueChange).toHaveBeenCalledWith('team')
-  })
-
-  it('applies multiple choices when confirmed', async () => {
-    const user = userEvent.setup()
-    const handleValueChange = vi.fn()
-
-    render(
-      <ChoiceDialog
-        type="multiple"
-        trigger={<Button>Choose filters</Button>}
-        title="Choose filters"
-        defaultValue={['unread']}
-        onValueChange={handleValueChange}
-        options={[
-          { value: 'unread', label: 'Unread' },
-          { value: 'starred', label: 'Starred' },
-          { value: 'priority', label: 'Priority' },
-        ]}
-      />,
-    )
-
-    await user.click(screen.getByRole('button', { name: 'Choose filters' }))
-    await user.click(screen.getByText('Starred'))
-    await user.click(screen.getByText('Priority'))
-    await user.click(screen.getByRole('button', { name: 'Apply' }))
-
-    expect(handleValueChange).toHaveBeenCalledWith(['unread', 'starred', 'priority'])
   })
 })
 

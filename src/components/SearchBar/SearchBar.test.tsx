@@ -27,4 +27,34 @@ describe('SearchBar', () => {
     expect(searchbox).toHaveValue('')
     expect(handleValueChange).toHaveBeenCalledWith('')
   })
+
+  it('fires onClear and onValueChange when clearing', async () => {
+    const user = userEvent.setup()
+    const handleClear = vi.fn()
+    const handleValueChange = vi.fn()
+    render(<SearchBar defaultValue="patterns" onClear={handleClear} onValueChange={handleValueChange} />)
+
+    await user.click(screen.getByRole('button', { name: 'Clear search' }))
+
+    expect(handleClear).toHaveBeenCalledTimes(1)
+    expect(handleValueChange).toHaveBeenCalledWith('')
+  })
+
+  it('does not write internal state in controlled mode', async () => {
+    const user = userEvent.setup()
+    const handleValueChange = vi.fn()
+    render(<SearchBar value="patterns" onValueChange={handleValueChange} />)
+
+    const searchbox = screen.getByRole('searchbox', { name: 'Search' })
+    await user.type(searchbox, 'x')
+
+    expect(handleValueChange).toHaveBeenCalledWith('patternsx')
+    expect(searchbox).toHaveValue('patterns')
+  })
+
+  it('hides the clear button when empty', () => {
+    render(<SearchBar />)
+
+    expect(screen.queryByRole('button', { name: 'Clear search' })).not.toBeInTheDocument()
+  })
 })

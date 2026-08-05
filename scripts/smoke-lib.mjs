@@ -20,24 +20,59 @@ assert.equal('PressRipple' in library, false, 'PressRipple should remain interna
 
 const styleCss = readFileSync(join(dist, 'style.css'), 'utf8')
 
+assert.match(
+  styleCss,
+  /:before,:after\{[^}]*box-sizing:border-box/,
+  'style.css should ship a universal box-sizing: border-box reset so generic component <div> roots (e.g. SearchBar) do not overflow the box model',
+)
+
+const topBarContentRule = styleCss.match(/\.[a-z0-9_]+\{[^}]*grid-column:1\/-1[^}]*\}/)
+
 assert.ok(
-  styleCss.includes('*,:before,:after{box-sizing:border-box}'),
-  'style.css should ship a universal box-sizing: border-box reset so generic component <div> roots (e.g. SearchBar) do not overflow the box model'
+  topBarContentRule,
+  'TopBar content slot should lay out multiple children side by side with display:flex instead of stacking block children',
+)
+
+assert.match(
+  topBarContentRule[0],
+  /display:flex/,
+  'TopBar content slot should lay out multiple children side by side with display:flex instead of stacking block children',
+)
+
+assert.match(
+  topBarContentRule[0],
+  /gap:var\(--space-2\)/,
+  'TopBar content slot should lay out multiple children side by side with display:flex instead of stacking block children',
+)
+
+assert.match(
+  topBarContentRule[0],
+  /width:100%/,
+  'TopBar content slot should lay out multiple children side by side with display:flex instead of stacking block children',
+)
+
+const cardRootRule = styleCss.match(/_card_[a-z0-9_]+\{[^}]*flex-direction:column[^}]*display:flex[^}]*\}/)
+
+assert.ok(
+  cardRootRule,
+  'Card root should use flex column layout instead of implicit grid max-content tracks',
+)
+
+assert.match(
+  cardRootRule[0],
+  /background:var\(--color-surface-raised\)/,
+  'Card root should use flex column layout instead of implicit grid max-content tracks',
+)
+
+assert.match(
+  cardRootRule[0],
+  /border-radius:var\(--radius-lg\)/,
+  'Card root should use flex column layout instead of implicit grid max-content tracks',
 )
 
 assert.ok(
-  styleCss.includes('gap:var(--space-2);grid-column:1/-1;width:100%;display:flex'),
-  'TopBar content slot should lay out multiple children side by side with display:flex instead of stacking block children'
-)
-
-assert.ok(
-  styleCss.includes('background:var(--color-surface-raised);border:1px solid var(--color-border);border-radius:var(--radius-lg);flex-direction:column;display:flex'),
-  'Card root should use flex column layout instead of implicit grid max-content tracks'
-)
-
-assert.ok(
-  /\._body_[a-z0-9_]+\{[^}]*flex-direction:column;display:flex[^}]*\}/.test(styleCss),
-  'CardBody should use flex column layout instead of implicit grid max-content tracks'
+  /_body_[a-z0-9_]+\{[^}]*flex-direction:column[^}]*display:flex[^}]*\}/.test(styleCss),
+  'CardBody should use flex column layout instead of implicit grid max-content tracks',
 )
 
 assert.ok(

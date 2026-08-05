@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useLayoutEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import {
   CaretLeftIcon,
   DotsThreeIcon,
@@ -7,6 +7,7 @@ import {
   SquaresFourIcon,
   XIcon,
 } from '@phosphor-icons/react'
+import { useAppearance } from '../components/Appearance'
 import { AppShell } from '../components/AppShell'
 import { BottomBar, type BottomBarItem } from '../components/BottomBar'
 import { IconButton } from '../components/IconButton'
@@ -19,10 +20,6 @@ import { exampleRoutes } from './exampleRoutes'
 import { HomeExample } from './pages/HomeExample'
 import { SettingsExample } from './pages/SettingsExample'
 import styles from './Example.module.css'
-import type { AccentPreference, ThemePreference } from './exampleTypes'
-
-const THEME_STORAGE_KEY = 'valhein-theme'
-const ACCENT_STORAGE_KEY = 'valhein-accent'
 
 const navItems: BottomBarItem[] = [
   {
@@ -37,111 +34,17 @@ const navItems: BottomBarItem[] = [
   },
 ]
 
-function getStoredThemePreference(): ThemePreference {
-  if (typeof window === 'undefined') {
-    return 'system'
-  }
-
-  try {
-    const storedPreference = window.localStorage.getItem(THEME_STORAGE_KEY)
-
-    if (storedPreference === 'system' || storedPreference === 'light' || storedPreference === 'dark') {
-      return storedPreference
-    }
-  } catch {
-    return 'system'
-  }
-
-  return 'system'
-}
-
-function getStoredAccentPreference(): AccentPreference {
-  if (typeof window === 'undefined') {
-    return 'standard'
-  }
-
-  try {
-    const storedPreference = window.localStorage.getItem(ACCENT_STORAGE_KEY)
-
-    if (
-      storedPreference === 'standard' ||
-      storedPreference === 'blue' ||
-      storedPreference === 'orange' ||
-      storedPreference === 'green' ||
-      storedPreference === 'purple'
-    ) {
-      return storedPreference
-    }
-  } catch {
-    return 'standard'
-  }
-
-  return 'standard'
-}
-
-function resolveThemePreference(preference: ThemePreference) {
-  if (preference !== 'system') {
-    return preference
-  }
-
-  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
-    return 'light'
-  }
-
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-}
-
 export function Example() {
   const [tab, setTab] = useState('examples')
   const [activeRouteId, setActiveRouteId] = useState<string | null>(null)
   const [query, setQuery] = useState('')
   const [searchMode, setSearchMode] = useState<'closed' | 'open' | 'closing'>('closed')
-  const [themePreference, setThemePreference] = useState<ThemePreference>(getStoredThemePreference)
-  const [accentPreference, setAccentPreference] = useState<AccentPreference>(getStoredAccentPreference)
+  const { accent, mode, setAccent, setMode } = useAppearance()
   const activeRoute = exampleRoutes.find((route) => route.id === activeRouteId)
   const ActiveRouteComponent = activeRoute?.component
   const isSearchVisible = searchMode !== 'closed'
   const isSearchClosing = searchMode === 'closing'
   const screenContentKey = tab === 'settings' ? 'settings' : activeRouteId ?? 'home'
-
-  useLayoutEffect(() => {
-    const applyThemePreference = () => {
-      document.documentElement.dataset.theme = resolveThemePreference(themePreference)
-    }
-
-    applyThemePreference()
-
-    if (themePreference !== 'system' || typeof window.matchMedia !== 'function') {
-      return undefined
-    }
-
-    const colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    colorSchemeQuery.addEventListener('change', applyThemePreference)
-
-    return () => {
-      colorSchemeQuery.removeEventListener('change', applyThemePreference)
-    }
-  }, [themePreference])
-
-  useEffect(() => {
-    try {
-      window.localStorage.setItem(THEME_STORAGE_KEY, themePreference)
-    } catch {
-      // The current session still reflects the selected theme.
-    }
-  }, [themePreference])
-
-  useLayoutEffect(() => {
-    document.documentElement.dataset.accent = accentPreference
-  }, [accentPreference])
-
-  useEffect(() => {
-    try {
-      window.localStorage.setItem(ACCENT_STORAGE_KEY, accentPreference)
-    } catch {
-      // The current session still reflects the selected accent.
-    }
-  }, [accentPreference])
 
   useEffect(() => {
     if (!isSearchClosing) {
@@ -218,10 +121,10 @@ export function Example() {
           <div className={styles.screenContent} key={screenContentKey}>
             {tab === 'settings' ? (
               <SettingsExample
-                accentPreference={accentPreference}
-                themePreference={themePreference}
-                onAccentPreferenceChange={setAccentPreference}
-                onThemePreferenceChange={setThemePreference}
+                accentPreference={accent}
+                themePreference={mode}
+                onAccentPreferenceChange={setAccent}
+                onThemePreferenceChange={setMode}
               />
             ) : ActiveRouteComponent ? (
               <Suspense fallback={<p className={styles.bodyText}>Loading example...</p>}>

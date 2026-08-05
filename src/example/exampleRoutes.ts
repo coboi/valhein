@@ -37,6 +37,7 @@ const SwitchExample = lazy(() => import('./pages/SwitchExample').then((module) =
 const TabsExample = lazy(() => import('./pages/TabsExample').then((module) => ({ default: module.TabsExample })))
 const ToastExample = lazy(() => import('./pages/ToastExample').then((module) => ({ default: module.ToastExample })))
 const TopBarExample = lazy(() => import('./pages/TopBarExample').then((module) => ({ default: module.TopBarExample })))
+const TooltipExample = lazy(() => import('./pages/TooltipExample').then((module) => ({ default: module.TooltipExample })))
 
 const routes = [
   { id: 'accordion', title: 'Accordion', description: 'Disclosure rows for compact content.', category: 'Layout', component: AccordionExample },
@@ -75,6 +76,7 @@ const routes = [
   { id: 'tabs', title: 'Tabs', description: 'Segmented navigation between nearby views.', category: 'Navigation', component: TabsExample },
   { id: 'toast', title: 'Toast', description: 'Floating non-blocking feedback.', category: 'Feedback', component: ToastExample },
   { id: 'top-bar', title: 'TopBar', description: 'Fixed top app chrome and search mode.', category: 'Navigation', component: TopBarExample },
+  { id: 'tooltip', title: 'Tooltip', description: 'Hover or focus popup hints.', category: 'Actions', component: TooltipExample },
 ] satisfies ExampleRoute[]
 
 export const exampleRoutes: ExampleRoute[] = [...routes].sort((a, b) => a.title.localeCompare(b.title))

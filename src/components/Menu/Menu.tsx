@@ -39,7 +39,7 @@ export function Menu({ trigger, items, align = 'end' }: MenuProps) {
               item.type === 'separator' ? (
                 <BaseMenu.Separator className={styles.separator} key={`separator-${index}`} />
               ) : (
-                <MenuActionItem item={item} key={item.label} />
+                <MenuActionItem item={item} key={`item-${index}`} />
               ),
             )}
           </BaseMenu.Popup>

@@ -21,25 +21,37 @@ export function List({ children }: ListProps) {
 export function ListItem({ title, description, leading, trailing, onClick }: ListItemProps) {
   const pressRipple = usePressRipple<HTMLButtonElement>({ disabled: !onClick })
 
-  const content = (
+  const leadingAndCopy = (
     <>
       {leading && <div className={styles.leading}>{leading}</div>}
       <div className={styles.content}>
         <span className={styles.title}>{title}</span>
         {description && <span className={styles.description}>{description}</span>}
       </div>
-      {trailing && <div className={styles.trailing}>{trailing}</div>}
     </>
   )
 
   if (onClick) {
     return (
-      <button className={styles.item} type="button" onClick={onClick} onPointerDown={pressRipple.onPointerDown}>
-        <PressRipple ripple={pressRipple.ripple} />
-        {content}
-      </button>
+      <div className={styles.item}>
+        <button
+          className={styles.main}
+          onClick={onClick}
+          onPointerDown={pressRipple.onPointerDown}
+          type="button"
+        >
+          <PressRipple ripple={pressRipple.ripple} />
+          {leadingAndCopy}
+        </button>
+        {trailing && <div className={styles.trailing}>{trailing}</div>}
+      </div>
     )
   }
 
-  return <div className={styles.item}>{content}</div>
+  return (
+    <div className={styles.item}>
+      {leadingAndCopy}
+      {trailing && <div className={styles.trailing}>{trailing}</div>}
+    </div>
+  )
 }

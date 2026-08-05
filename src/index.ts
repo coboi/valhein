@@ -2,6 +2,7 @@ import './styles/library.css'
 
 export * from './components/Accordion'
 export * from './components/Alert'
+export * from './components/Appearance'
 export * from './components/AppShell'
 export * from './components/Avatar'
 export * from './components/Badge'

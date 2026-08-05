@@ -38,7 +38,7 @@ function ToastItem({ toast }: { toast: ToastObject<{ variant?: 'default' | 'dang
   })
 
   return (
-    <BaseToast.Root className={styles.root} swipeDirection="right" toast={toast}>
+    <BaseToast.Root className={styles.root} data-type={toast.data?.variant} swipeDirection="right" toast={toast}>
       <BaseToast.Content className={styles.content} ref={contentRef}>
         <PressRipple ripple={closeRipple.ripple} />
         <div className={styles.copy}>
