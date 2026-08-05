@@ -29,6 +29,7 @@
 }
 
 .main {
+  position: relative;
   display: flex;
   flex: 1 1 auto;
   align-self: stretch;
@@ -44,7 +45,6 @@
 }
 
 .main:active {
-  background: var(--color-pressed);
   transform: scale(0.995);
 }
 
