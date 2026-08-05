@@ -2,6 +2,8 @@
 
 Simple mobile-first UI for React.
 
+> Valhein is pre-1.0 — breaking API changes may land in any release.
+
 ## Install
 
 ```sh
@@ -108,6 +110,24 @@ The stylesheet exposes CSS custom properties on `:root`. Override them to custom
 
 Dark mode is supported via `data-theme="dark"` on the root element. Built-in accent presets (`blue`, `orange`, `green`, `purple`) are activated with `data-accent="blue"` etc.
 
+The `useAppearance` hook manages both with persistence:
+
+```tsx
+import { useAppearance } from 'valhein'
+
+function App() {
+  const { mode, accent, setMode, setAccent } = useAppearance()
+  return (
+    <div>
+      <button type="button" onClick={() => setMode('dark')}>Dark</button>
+      <button type="button" onClick={() => setAccent('green')}>Green</button>
+    </div>
+  )
+}
+```
+
+It applies `data-theme` / `data-accent` to the root element and stores the choice in `localStorage`. Call with `{ storageKey: 'app' }` to scope the storage key.
+
 All tokens are CSS custom properties defined in `src/styles/tokens.css`. The main families:
 
 | Family | Prefix | Examples |
@@ -126,20 +146,6 @@ If you use AI coding assistants to build applications with Valhein, you can opti
 ```sh
 npx skills add coboi/skills --skill valhein-ui
 ```
-
-## Versioning
-
-Valhein is pre-1.0 and follows [semantic versioning](https://semver.org/):
-within `0.x`, minor versions (`0.1`, `0.2`, …) MAY contain breaking API
-changes, and the CHANGELOG records them explicitly. Patch releases (`0.1.1`) are
-bug fixes only.
-
-Before publishing a release:
-
-1. Update `CHANGELOG.md` with the changes since the last tag.
-2. Bump `version` in `package.json`.
-3. `git tag` the release and push the tag.
-4. Run `npm publish` (guarded by `prepublishOnly`, which runs the full check).
 
 ## Docs & Demo
 

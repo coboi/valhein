@@ -34,6 +34,10 @@
 - Alert confirmation is `Dialog variant="alert"`, not a separate component.
 - For Base UI docs, prefer installed `@base-ui/react` v1.6.0 (`/mui/base-ui/v1.6.0`) or the Base UI llms refs.
 
+## Releases
+- Version lives in `package.json`; pre-1.0, so any release may include breaking API changes. Keep `CHANGELOG.md` in the same concise style.
+- Publish flow: bump version → add CHANGELOG entry → commit → `git tag vX.Y.Z` and push → `npm publish` (`prepublishOnly` runs `npm run check`).
+
 ## TypeScript / Tests
 - TypeScript has `noUnusedLocals`, `noUnusedParameters`, `erasableSyntaxOnly`, and `noFallthroughCasesInSwitch` enabled; remove unused values and avoid enums/namespaces.
 - Oxlint uses `react`, `typescript`, and `oxc` plugins; `react/rules-of-hooks` is an error and `react/only-export-components` is a warning with constant exports allowed.
