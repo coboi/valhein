@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2] — 2026-08-19
+
+Visual refinements for secondary surfaces and neutral badges, plus example app cleanup.
+
+- Switch secondary button, bottom bar active tab, and tab indicators to solid `--color-surface-raised` background.
+- Lighten `--color-badge-neutral` token.
+- Streamline Home and Settings pages in the demo application.
+
 ## [0.1.1] — 2026-08-05
 
 Polish release with a new `useAppearance` hook and fixes.

@@ -14,8 +14,8 @@ describe('App', () => {
   it('renders the example catalog', () => {
     render(<App />)
 
-    expect(screen.getByRole('heading', { name: 'Component examples.' })).toBeInTheDocument()
-    expect(screen.getByText('Valhein example')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Actions' })).toBeInTheDocument()
+    expect(screen.getByText('Valhein Example')).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Forms' })).toBeInTheDocument()
   })
 
@@ -23,17 +23,17 @@ describe('App', () => {
     const user = userEvent.setup()
     render(<App />)
 
-    await user.click(screen.getByRole('button', { name: /ButtonPrimary/ }))
+    await user.click(screen.getByRole('button', { name: /^Button/ }))
     expect(await screen.findByRole('heading', { name: 'Button' })).toBeInTheDocument()
 
     await user.click(screen.getByRole('tab', { name: 'Settings' }))
-    expect(screen.getByRole('heading', { name: 'Foundation' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Appearance' })).toBeInTheDocument()
 
     await user.click(screen.getByRole('tab', { name: 'Examples' }))
     expect(await screen.findByRole('heading', { name: 'Button' })).toBeInTheDocument()
 
     await user.click(screen.getByRole('button', { name: 'Back to examples' }))
-    expect(screen.getByRole('heading', { name: 'Component examples.' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Actions' })).toBeInTheDocument()
   })
 
   it('opens and closes topbar search', async () => {
@@ -54,7 +54,7 @@ describe('App', () => {
     const user = userEvent.setup()
     render(<App />)
 
-    await user.click(screen.getByRole('button', { name: /InputText/ }))
+    await user.click(screen.getByRole('button', { name: /^Input/ }))
     await user.click(await screen.findByRole('button', { name: 'Validate form' }))
 
     expect(screen.getByText('Name is required.')).toBeInTheDocument()
@@ -65,7 +65,7 @@ describe('App', () => {
     const user = userEvent.setup()
     render(<App />)
 
-    await user.click(screen.getByRole('button', { name: /DialogFocused/ }))
+    await user.click(screen.getByRole('button', { name: /^Dialog/ }))
     await user.click(await screen.findByRole('button', { name: 'Try alert' }))
     expect(screen.getByRole('heading', { name: 'Archive pattern?' })).toBeInTheDocument()
 
@@ -79,7 +79,7 @@ describe('App', () => {
     const user = userEvent.setup()
     render(<App />)
 
-    await user.click(screen.getByRole('button', { name: /SheetBottom/ }))
+    await user.click(screen.getByRole('button', { name: /^Sheet/ }))
     await user.click(await screen.findByRole('button', { name: 'Open sheet' }))
     expect(screen.getByRole('heading', { name: 'Sheet' })).toBeInTheDocument()
 
@@ -93,7 +93,7 @@ describe('App', () => {
     const user = userEvent.setup()
     render(<App />)
 
-    await user.click(screen.getByRole('button', { name: /PanelSide/ }))
+    await user.click(screen.getByRole('button', { name: /^Panel/ }))
     await user.click(await screen.findByRole('button', { name: 'Open left panel' }))
     expect(screen.getByRole('heading', { name: 'App menu' })).toBeInTheDocument()
 
@@ -110,7 +110,7 @@ describe('App', () => {
     await user.click(screen.getByRole('tab', { name: 'Settings' }))
     expect(screen.getByRole('heading', { name: 'Appearance' })).toBeInTheDocument()
 
-    await user.click(screen.getByText('Dark'))
+    await user.selectOptions(screen.getByRole('combobox', { name: 'Theme' }), 'dark')
 
     await waitFor(() => {
       expect(document.documentElement).toHaveAttribute('data-theme', 'dark')
@@ -123,7 +123,7 @@ describe('App', () => {
     render(<App />)
 
     await user.click(screen.getByRole('tab', { name: 'Settings' }))
-    await user.click(screen.getByText('Orange'))
+    await user.selectOptions(screen.getByRole('combobox', { name: 'Accent' }), 'orange')
 
     await waitFor(() => {
       expect(document.documentElement).toHaveAttribute('data-accent', 'orange')
